@@ -192,11 +192,11 @@ BUILD_NOW()
 		cd "$KERNELDIR"/READY-KERNEL/
 
 		# create the flashable zip file from the contents of the output directory
-	#	echo "Make flashable zip..........."
-	#	zip -r Alucard-Kernel-"${GETVER}"-MM-"$(date +"[%H-%M]-[%d-%m]-LG-PWR-CORE")".zip * >/dev/null
-	#	stat boot.img
-	#	rm -f ./*.img
-	#	cd ..
+		echo "Make flashable zip..........."
+		zip -r Alucard-Kernel-"${GETVER}"-MM-"$(date +"[%H-%M]-[%d-%m]-LG-PWR-CORE")".zip * >/dev/null
+		stat boot.img
+		rm -f ./*.img
+		cd ..
 	else
 		if [ "$PYTHON_WAS_3" -eq "1" ]; then
 			rm /usr/bin/python
@@ -244,11 +244,11 @@ CLEAN_KERNEL()
 	fi;
 
 	# restore firmware libs*.a
-	git checkout firmware/
+	# git checkout firmware/
 }
 
-export KERNEL_CONFIG=alucard_h850_defconfig
-KERNEL_CONFIG_FILE=alucard_h850_defconfig
+export KERNEL_CONFIG=h1_global_com_defconfig
+KERNEL_CONFIG_FILE=h1_global_com_defconfig
 BUILD_H850=1;
 BUILD_NOW;
 
