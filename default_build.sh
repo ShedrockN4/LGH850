@@ -83,7 +83,7 @@ BUILD_NOW()
 	echo "Compiling Kernel.............";
 	if [ ! -f "$KERNELDIR"/.config ]; then
 		if [ "$BUILD_H850" -eq "1" ]; then
-			cp arch/arm64/configs/h1_global_com_defconfig .config
+			cp arch/arm64/configs/Xp_defconfig .config
 		fi;
 	fi;
 
@@ -193,7 +193,7 @@ BUILD_NOW()
 
 		# create the flashable zip file from the contents of the output directory
 		echo "Make flashable zip..........."
-		zip -r Xp1-Kernel-"${GETVER}"-MM-"$(date +"-[%d-%m]")".zip * >/dev/null
+		zip -r Xp-Kernel-MM-"$(date +"%d.%m")"-R1.zip * >/dev/null
 		stat boot.img
 		rm -f ./*.img
 		cd ..
@@ -247,8 +247,8 @@ CLEAN_KERNEL()
 	# git checkout firmware/
 }
 
-export KERNEL_CONFIG=h1_global_com_defconfig
-KERNEL_CONFIG_FILE=h1_global_com_defconfig
+export KERNEL_CONFIG=Xp_defconfig
+KERNEL_CONFIG_FILE=Xp_defconfig
 BUILD_H850=1;
 BUILD_NOW;
 
