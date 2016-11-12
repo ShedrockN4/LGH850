@@ -193,7 +193,7 @@ BUILD_NOW()
 
 		# create the flashable zip file from the contents of the output directory
 		echo "Make flashable zip..........."
-		zip -r Xp-Kernel-MM-"$(date +"%d.%m")"-R1.zip * >/dev/null
+		zip -r Xp-Kernel-MM-"$(date +"%d.%m")"-"$VERSION".zip * >/dev/null
 		stat boot.img
 		rm -f ./*.img
 		cd ..
