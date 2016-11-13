@@ -77,13 +77,8 @@ BUILD_NOW()
 		fi;
 	else
 		echo "Python2 is used! all good, building!";
-		if["$1" -eq "UBER"]; then
-			$tc = ../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android-;
-		else
-			$tc = ../aarch64-linux-android-4.9/bin/aarch64-linux-android-;
-		fi;
 	fi;
-
+	
 	# move into the kernel directory and compile the main image
 	echo "Compiling Kernel.............";
 	if [ ! -f "$KERNELDIR"/.config ]; then
@@ -113,7 +108,7 @@ BUILD_NOW()
 	fi;
 
 	# build Image
-	time make ARCH=arm64 CROSS_COMPILE=$tc CC='../aarch64-linux-android-4.9/bin/aarch64-linux-android-gcc' -j ${NR_CPUS}
+	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android- CC='../aarch64-linux-android-4.9/bin/aarch64-linux-android-gcc' -j ${NR_CPUS}
 
 	cp "$KERNELDIR"/.config "$KERNELDIR"/arch/arm64/configs/"$KERNEL_CONFIG_FILE";
 
@@ -121,7 +116,7 @@ BUILD_NOW()
 
 	# compile the modules, and depmod to create the final Image
 	echo "Compiling Modules............"
-	time make ARCH=arm64 CROSS_COMPILE=$tc CC='../aarch64-linux-android-4.9/bin/aarch64-linux-android-gcc' modules -j ${NR_CPUS} || exit 1
+	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android- CC='../aarch64-linux-android-4.9/bin/aarch64-linux-android-gcc' modules -j ${NR_CPUS} || exit 1
 
 	# move the compiled Image and modules into the READY-KERNEL working directory
 	echo "Move compiled objects........"
