@@ -107,7 +107,7 @@ BUILD_NOW()
 	fi;
 
 	# build Image
-	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android- -j ${NR_CPUS}
+	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-4.9/bin/aarch64-linux-android- -j ${NR_CPUS}
 
 	cp "$KERNELDIR"/.config "$KERNELDIR"/arch/arm64/configs/"$KERNEL_CONFIG_FILE";
 
@@ -115,7 +115,7 @@ BUILD_NOW()
 
 	# compile the modules, and depmod to create the final Image
 	echo "Compiling Modules............"
-	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android- modules -j ${NR_CPUS} || exit 1
+	time make ARCH=arm64 CROSS_COMPILE=../aarch64-linux-android-4.9/bin/aarch64-linux-android- modules -j ${NR_CPUS} || exit 1
 
 	# move the compiled Image and modules into the READY-KERNEL working directory
 	echo "Move compiled objects........"
@@ -148,8 +148,8 @@ BUILD_NOW()
 		cp .config READY-KERNEL/view_only_config
 
 		# strip not needed debugs from modules.
-		../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android-strip --strip-unneeded "$KERNELDIR"/READY-KERNEL/system/lib/modules/* 2>/dev/null
-		../aarch64-linux-android-6.x-kernel/bin/aarch64-linux-android-strip --strip-debug "$KERNELDIR"/READY-KERNEL/system/lib/modules/* 2>/dev/null
+		../aarch64-linux-android-4.9/bin/aarch64-linux-android-strip --strip-unneeded "$KERNELDIR"/READY-KERNEL/system/lib/modules/* 2>/dev/null
+		../aarch64-linux-android-4.9/bin/aarch64-linux-android-strip --strip-debug "$KERNELDIR"/READY-KERNEL/system/lib/modules/* 2>/dev/null
 
 		# create the Ramdisk and move it to the output working directory
 		echo "Create Ramdisk..............."
@@ -192,7 +192,7 @@ BUILD_NOW()
 
 		# create the flashable zip file from the contents of the output directory
 		echo "Make flashable zip..........."
-		zip -r Xp-Kernel-MM-"$(date +"%d.%m")"-"$VERSION".zip * >/dev/null
+		zip -r Xp-Kernel-MM-"$(date +"%d.%m")"-"${GETVER}".zip * >/dev/null
 		stat boot.img
 		rm -f ./*.img
 		cd ..
