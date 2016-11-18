@@ -55,7 +55,11 @@
 /*                                                                      */
 /*======================================================================*/
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,36)
+DECLARE_MUTEX(z_sem);
+#else
 DEFINE_SEMAPHORE(z_sem);
+#endif
 
 s32 sm_init(struct semaphore *sm)
 {
@@ -184,5 +188,3 @@ TIMESTAMP_T *tm_current(TIMESTAMP_T *tp)
 
 	return tp;
 } /* end of tm_current */
-
-/* end of exfat_oal.c */
